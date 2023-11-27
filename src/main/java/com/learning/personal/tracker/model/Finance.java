@@ -15,7 +15,9 @@ public class Finance {
     @Column(name = "finance_id", columnDefinition = "serial")
     private Long financeId;
     @Column(name = "finance_budget")
-    private Integer financeBudget;
+    private Double financeBudget;
+    @Column(name = "finance_monthly_budget")
+    private Double financeMonthlyBudget;
     @Column(name = "do_warn")
     private boolean doWarn;
 
@@ -28,10 +30,11 @@ public class Finance {
     @OneToMany(mappedBy = "finance")
     private List<Transaction> transaction;
 
-    public Finance(long financeId, Long userId, Integer financeBudget, boolean doWarn) {
+    public Finance(long financeId, Long userId, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) {
         this.financeId = financeId;
         this.userId = userId;
         this.financeBudget = financeBudget;
+        this.financeMonthlyBudget = financeMonthlyBudget;
         this.doWarn = doWarn;
     }
 

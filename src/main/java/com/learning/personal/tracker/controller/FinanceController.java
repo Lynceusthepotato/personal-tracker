@@ -23,13 +23,14 @@ public class FinanceController {
     @PostMapping("/create")
     public ResponseEntity<Finance> addFinance(HttpServletRequest request, @RequestParam Map<String, Object> financeMap) {
         Long userId = (Long) request.getAttribute("user_id");
-        Integer financeBudget = Integer.parseInt ((String) financeMap.get("finance_budget"));
+
+        Double financeMonthlyBudget = Double.parseDouble ((String) financeMap.get("finance_monthly_budget"));
         boolean doWarn = Boolean.parseBoolean((String) financeMap.get("do_warn"));
-        Finance finance = financeService.addFinance(userId, financeBudget, doWarn);
+        Finance finance = financeService.addFinance(userId, financeMonthlyBudget, doWarn);
         return new ResponseEntity<>(finance, HttpStatus.CREATED);
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public ResponseEntity<Finance> findFinance(HttpServletRequest request) { // could add path variable for finance_id but since each user is finance detail unique then it not need to
         Long userId = (Long) request.getAttribute("user_id");
         Finance finance = financeService.getFinanceDetailById(userId);
@@ -39,9 +40,10 @@ public class FinanceController {
     @PutMapping("/update")
     public ResponseEntity<Map<String, Boolean>> updateFinance(HttpServletRequest request, @RequestParam Map<String, Object> financeMap) {
         Long userId = (Long) request.getAttribute("user_id");
-        Integer financeBudget = Integer.parseInt ((String) financeMap.get("finance_budget"));
+        Double financeBudget = Double.parseDouble ((String) financeMap.get("finance_budget"));
+        Double financeMonthlyBudget = Double.parseDouble ((String) financeMap.get("finance_monthly_budget"));
         boolean doWarn = Boolean.parseBoolean((String) financeMap.get("do_warn"));
-        financeService.updateFinance(userId, financeBudget, doWarn);
+        financeService.updateFinance(userId, financeBudget, financeMonthlyBudget, doWarn);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);

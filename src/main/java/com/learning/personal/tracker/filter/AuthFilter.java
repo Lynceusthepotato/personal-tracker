@@ -1,4 +1,4 @@
-package com.learning.personal.tracker.Filters;
+package com.learning.personal.tracker.filter;
 
 import com.learning.personal.tracker.Constants;
 import io.jsonwebtoken.Claims;

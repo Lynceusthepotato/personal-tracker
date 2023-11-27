@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -26,7 +26,9 @@ public class UserController {
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
         User user = userService.requestLogin(email, password);
-        return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
+        Map<String, String> tokenMap = generateJWTToken(user);
+        tokenMap.put("username", user.getUsername());
+        return new ResponseEntity<>(tokenMap, HttpStatus.OK);
     }
 
     @PostMapping("/register")
@@ -35,7 +37,9 @@ public class UserController {
         String username = (String) userMap.get("username");
         String password = (String) userMap.get("password");
         User user = userService.registerUser(email, username, password);
-        return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
+        Map<String, String> tokenMap = generateJWTToken(user);
+        tokenMap.put("username", user.getUsername());
+        return new ResponseEntity<>(tokenMap, HttpStatus.OK);
     }
 
     private Map<String, String> generateJWTToken(User user) {

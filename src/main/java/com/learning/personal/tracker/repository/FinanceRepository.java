@@ -10,9 +10,9 @@ public interface FinanceRepository {
 
     Finance findById(Long userId) throws JSResourceNotFoundException;
 
-    Long create(Long userId, Integer financeBudget, boolean doWarn) throws JSBadRequestException;
+    Long create(Long userId, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException;
 
-    void update(Long userId, Long finance_id, Integer financeBudget, boolean doWarn) throws JSBadRequestException;
+    void update(Long userId, Long finance_id, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException;
 
     void removeById(Long userId) throws JSResourceNotFoundException;
 }
