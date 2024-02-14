@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @Repository
 public class UserRepositoryImplement implements UserRepository {
-    private static final String SQL_CREATE = "INSERT INTO user_list(email, username, password, last_login) VALUES(?, ?, ?, current_timestamp)";
+    private static final String SQL_CREATE = "INSERT INTO user_list(email, username, password, last_login, created_at) VALUES(?, ?, ?, current_timestamp, current_timestamp)";
     private static final String SQL_FIND_BY_EMAIL = "SELECT * FROM user_list WHERE email = ?";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM user_list WHERE email = ?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM user_list WHERE user_id = ?";
@@ -70,12 +70,13 @@ public class UserRepositoryImplement implements UserRepository {
     }
 
     private final RowMapper<User> userRowMapper = ((rs, rowNum) -> {
-        LocalDateTime timestamp = rs.getObject("last_login", LocalDateTime.class);
+        LocalDateTime lastLogin = rs.getObject("last_login", LocalDateTime.class);
+        LocalDateTime createdAt = rs.getObject("created_at", LocalDateTime.class);
         return new User(
                 rs.getLong("user_id"),
                 rs.getString("email"),
                 rs.getString("username"),
                 rs.getString("password"),
-                timestamp);
+                lastLogin, createdAt);
     });
 }

@@ -4,7 +4,7 @@ import com.learning.personal.tracker.exceptions.JSBadRequestException;
 import com.learning.personal.tracker.exceptions.JSResourceNotFoundException;
 import com.learning.personal.tracker.model.Transaction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TransactionService {
@@ -13,9 +13,9 @@ public interface TransactionService {
 
     Transaction getTransactionById(Long userId, Long transactionId) throws JSResourceNotFoundException;
 
-    Transaction addTransaction(Long userId, Integer transactionNumeral, String transactionDescription, LocalDate transactionDate) throws JSBadRequestException;
+    Transaction addTransaction(Long userId, Long categoryId, Integer transactionNumeral, String transactionName, String transactionDescription, LocalDateTime transactionDate) throws JSBadRequestException;
 
-    void updateTransaction(Long userId, Long transactionId, Integer transactionNumeral, String transactionDescription, LocalDate transactionDate) throws  JSBadRequestException;
+    Transaction updateTransaction(Long userId, Long transactionId, Long categoryId, Integer transactionNumeral, String transactionName, String transactionDescription, LocalDateTime transactionDate) throws  JSBadRequestException;
 
     void removeTransactionDetails(Long userId, Long transactionId) throws JSResourceNotFoundException;
 }

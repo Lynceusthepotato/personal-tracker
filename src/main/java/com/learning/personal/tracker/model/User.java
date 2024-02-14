@@ -21,17 +21,20 @@ public class User {
     private String password;
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Finance finance;
     @OneToMany(mappedBy = "user")
     private List<Todo> todo;
 
-    public User(long userId, String email, String username, String password, LocalDateTime lastLogin) {
+    public User(long userId, String email, String username, String password, LocalDateTime lastLogin, LocalDateTime createdAt) {
         this.userId = userId;
         this.email = email;
         this.username = username;
         this.password = password;
         this.lastLogin = lastLogin;
+        this.createdAt = createdAt;
     }
 }

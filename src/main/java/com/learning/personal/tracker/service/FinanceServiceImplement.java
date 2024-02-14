@@ -27,13 +27,14 @@ public class FinanceServiceImplement implements FinanceService{
     }
 
     @Override
-    public void updateFinance(Long userId, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException {
+    public Finance updateFinance(Long userId, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException {
         Finance finance = financeRepository.findById(userId);
         if (finance != null) {
             financeRepository.update(userId, finance.getFinanceId(), financeBudget, financeMonthlyBudget, doWarn);
         } else {
             throw new JSBadRequestException("Data not found");
         }
+        return financeRepository.findById(userId);
     }
 
     @Override

@@ -38,15 +38,15 @@ public class FinanceController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Map<String, Boolean>> updateFinance(HttpServletRequest request, @RequestParam Map<String, Object> financeMap) {
+    public ResponseEntity<Finance> updateFinance(HttpServletRequest request, @RequestParam Map<String, Object> financeMap) {
         Long userId = (Long) request.getAttribute("user_id");
         Double financeBudget = Double.parseDouble ((String) financeMap.get("finance_budget"));
         Double financeMonthlyBudget = Double.parseDouble ((String) financeMap.get("finance_monthly_budget"));
         boolean doWarn = Boolean.parseBoolean((String) financeMap.get("do_warn"));
-        financeService.updateFinance(userId, financeBudget, financeMonthlyBudget, doWarn);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success", true);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        Finance finance = financeService.updateFinance(userId, financeBudget, financeMonthlyBudget, doWarn);
+//        Map<String, Boolean> map = new HashMap<>();
+//        map.put("success", true);
+        return new ResponseEntity<>(finance, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

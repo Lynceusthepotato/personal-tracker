@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -39,26 +40,30 @@ public class TransactionController {
     @PostMapping("/create")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestParam Map<String, Object> transactionMap) {
         Long userId = (Long) request.getAttribute("user_id");
+        Long categoryId = Long.parseLong((String) transactionMap.get("category_id"));
         Integer transactionNumeral = Integer.parseInt((String) transactionMap.get("transaction_numeral"));
-        String  transactionDescription = (String) transactionMap.get("transaction_numeral");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        LocalDate date = LocalDate.parse((String) transactionMap.get("transaction_date"), formatter);
-        Transaction transaction = transactionService.addTransaction(userId, transactionNumeral, transactionDescription, date);
+        String transactionName = (String) transactionMap.get("transaction_name");
+        String transactionDescription = (String) transactionMap.get("transaction_description");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime date = LocalDateTime.parse((String) transactionMap.get("transaction_date"), formatter);
+        Transaction transaction = transactionService.addTransaction(userId, categoryId, transactionNumeral, transactionName, transactionDescription, date);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Map<String, Boolean>> updateTransaction(HttpServletRequest request, @RequestParam Map<String, Object> transactionMap) {
+    public ResponseEntity<Transaction> updateTransaction(HttpServletRequest request, @RequestParam Map<String, Object> transactionMap) {
         Long userId = (Long) request.getAttribute("user_id");
         Long transactionId = Long.parseLong((String) transactionMap.get("transaction_numeral"));
+        Long categoryId = Long.parseLong((String) transactionMap.get("category_id"));
         Integer transactionNumeral = Integer.parseInt((String) transactionMap.get("transaction_numeral"));
-        String  transactionDescription = (String) transactionMap.get("transaction_numeral");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        LocalDate date = LocalDate.parse((String) transactionMap.get("transaction_date"), formatter);
-        transactionService.updateTransaction(userId, transactionId,transactionNumeral, transactionDescription, date);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success", true);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        String transactionName = (String) transactionMap.get("transaction_name");
+        String transactionDescription = (String) transactionMap.get("transaction_description");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime date = LocalDateTime.parse((String) transactionMap.get("transaction_date"), formatter);
+        Transaction transaction = transactionService.updateTransaction(userId, transactionId, categoryId, transactionNumeral, transactionName, transactionDescription, date);
+//        Map<String, Boolean> map = new HashMap<>();
+//        map.put("success", true);
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{transaction_id}")
