@@ -21,7 +21,7 @@ public class TransactionCategoryRepositoryImplement implements TransactionCatego
     private static final String SQL_CATEGORY_GET_ALL = "SELECT * FROM category_list";
     private static final String SQL_CATEGORY_FIND_BY_ID = "SELECT * FROM category_list WHERE category_id = ?";
     private static final String SQL_CATEGORY_CREATE = "INSERT INTO category_list (category_name) VALUES (?)";
-    private static final String SQL_TRANSACTION_CATEGORY = "(SELECT category_id WHERE transaction_id = ?)";
+    private static final String SQL_TRANSACTION_CATEGORY = "(SELECT category_id from transaction_list tl WHERE transaction_id = ?)";
     private static final String SQL_CATEGORY_FIND_BY_TRANSACTION_ID = "SELECT * FROM category_list WHERE category_id = " + SQL_TRANSACTION_CATEGORY + " ";
 
     @Autowired

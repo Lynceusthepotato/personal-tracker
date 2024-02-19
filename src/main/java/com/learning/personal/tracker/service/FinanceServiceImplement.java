@@ -15,9 +15,14 @@ public class FinanceServiceImplement implements FinanceService{
     @Autowired
     FinanceRepository financeRepository;
 
+    @Autowired
+    TransactionService transactionService;
+
     @Override
     public Finance getFinanceDetailById(Long userId) throws JSResourceNotFoundException {
-        return financeRepository.findById(userId);
+        Finance finance = financeRepository.findById(userId);
+        finance.setTransaction(transactionService.getAllTransaction(userId));
+        return finance;
     }
 
     @Override

@@ -23,7 +23,11 @@ public class TransactionServiceImplement implements TransactionService{
 
     @Override
     public List<Transaction> getAllTransaction(Long userId) {
-        return transactionRepository.findAll(userId);
+        List<Transaction> transactionList = transactionRepository.findAll(userId);
+        for (Transaction transaction : transactionList) {
+            transaction.setCategory(transactionCategoryRepository.findByTransactionId(transaction.getTransactionId()));
+        }
+        return transactionList;
     }
 
     @Override

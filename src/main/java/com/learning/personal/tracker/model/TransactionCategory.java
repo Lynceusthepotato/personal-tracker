@@ -1,5 +1,6 @@
 package com.learning.personal.tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class TransactionCategory {
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Transaction> transaction;
 
     public TransactionCategory(long categoryId, String categoryName) {

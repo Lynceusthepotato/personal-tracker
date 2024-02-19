@@ -41,7 +41,6 @@ public class PersonalTrackerApplication {
 		registrationBean.addUrlPatterns("/api/finance/*");
 		registrationBean.addUrlPatterns("/api/todo/*");
 		registrationBean.addUrlPatterns("/api/transaction/*");
-		registrationBean.addUrlPatterns("/api/transaction_category/*");
 		return registrationBean;
 	}
 }
