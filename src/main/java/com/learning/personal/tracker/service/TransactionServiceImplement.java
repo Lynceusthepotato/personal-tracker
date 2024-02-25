@@ -40,13 +40,13 @@ public class TransactionServiceImplement implements TransactionService{
     @Override
     public Transaction addTransaction(Long userId, Long categoryId, Integer transactionNumeral, String transactionName, String transactionDescription, LocalDateTime transactionDate) throws JSBadRequestException {
         Long transactionId = transactionRepository.create(userId, categoryId, transactionNumeral, transactionName, transactionDescription, transactionDate);
-        return transactionRepository.findById(userId, transactionId);
+        return getTransactionById(userId, transactionId);
     }
 
     @Override
     public Transaction updateTransaction(Long userId, Long transactionId, Long categoryId, Integer transactionNumeral, String transactionName, String transactionDescription, LocalDateTime transactionDate) throws JSBadRequestException {
         transactionRepository.update(userId, transactionId, categoryId, transactionNumeral, transactionName, transactionDescription, transactionDate);
-        return transactionRepository.findById(userId, transactionId);
+        return getTransactionById(userId, transactionId);
     }
 
     @Override
