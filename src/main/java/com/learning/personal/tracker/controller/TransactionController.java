@@ -53,7 +53,7 @@ public class TransactionController {
     @PostMapping("/update")
     public ResponseEntity<Transaction> updateTransaction(HttpServletRequest request, @RequestParam Map<String, Object> transactionMap) {
         Long userId = (Long) request.getAttribute("user_id");
-        Long transactionId = Long.parseLong((String) transactionMap.get("transaction_numeral"));
+        Long transactionId = Long.parseLong((String) transactionMap.get("transaction_id"));
         Long categoryId = Long.parseLong((String) transactionMap.get("category_id"));
         Integer transactionNumeral = Integer.parseInt((String) transactionMap.get("transaction_numeral"));
         String transactionName = (String) transactionMap.get("transaction_name");
