@@ -43,6 +43,12 @@ public class FinanceServiceImplement implements FinanceService{
     }
 
     @Override
+    public Finance updateFinanceCurrentBudget(Long userId, Double financeBudget) throws JSBadRequestException {
+        financeRepository.updateCurrentBudget(userId, financeBudget);
+        return this.getFinanceDetailById(userId);
+    }
+
+    @Override
     public void removeFinanceIncludingTransaction(Long userId) throws JSResourceNotFoundException {
         this.getFinanceDetailById(userId);
         financeRepository.removeById(userId);

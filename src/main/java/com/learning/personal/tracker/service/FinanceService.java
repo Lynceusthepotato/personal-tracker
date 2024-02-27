@@ -11,5 +11,8 @@ public interface FinanceService {
     Finance addFinance(Long userId, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException;
 
     Finance updateFinance(Long userId, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException;
+
+    Finance updateFinanceCurrentBudget(Long userId, Double financeBudget) throws JSBadRequestException;
+
     void removeFinanceIncludingTransaction(Long userId) throws JSResourceNotFoundException;
 }

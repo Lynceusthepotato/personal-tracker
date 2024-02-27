@@ -15,4 +15,6 @@ public interface FinanceRepository {
     void update(Long userId, Long finance_id, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException;
 
     void removeById(Long userId) throws JSResourceNotFoundException;
+
+    void updateCurrentBudget(Long userId, Double financeBudget) throws JSBadRequestException;
 }

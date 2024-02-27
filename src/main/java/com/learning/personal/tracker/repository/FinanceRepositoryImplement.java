@@ -24,7 +24,7 @@ public class FinanceRepositoryImplement implements FinanceRepository{
     private static final String SQL_UPDATE_FINANCE = "UPDATE finance_list SET finance_budget = ?, finance_monthly_budget = ?, do_warn = ? WHERE user_id = ? AND finance_id = ?";
     private static final String SQL_DELETE_FINANCE = "DELETE FROM finance_list where user_id = ?";
     private static final String SQL_DELETE_ALL_TRANSACTION = "DELETE FROM transaction_list where finance_id = (SELECT finance_id from finance_list fl where fl.user_id = ?)";
-
+    private static final String SQL_UPDATE_FINANCE_CURRENT_BUDGET = "UPDATE finance_list SET finance_budget = finance_budget - ? WHERE user_id = ?";
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -59,6 +59,15 @@ public class FinanceRepositoryImplement implements FinanceRepository{
     public void update(Long userId, Long finance_id, Double financeBudget, Double financeMonthlyBudget, boolean doWarn) throws JSBadRequestException {
         try {
             jdbcTemplate.update(SQL_UPDATE_FINANCE, financeBudget, financeMonthlyBudget, doWarn, userId, finance_id);
+        } catch (Exception e) {
+            throw new JSBadRequestException("Invalid Request");
+        }
+    }
+
+    @Override
+    public void updateCurrentBudget(Long userId, Double financeBudget) throws JSBadRequestException {
+        try {
+            jdbcTemplate.update(SQL_UPDATE_FINANCE_CURRENT_BUDGET, financeBudget, userId);
         } catch (Exception e) {
             throw new JSBadRequestException("Invalid Request");
         }
