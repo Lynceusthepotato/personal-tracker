@@ -61,8 +61,6 @@ public class TransactionController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.parse((String) transactionMap.get("transaction_date"), formatter);
         Transaction transaction = transactionService.updateTransaction(userId, transactionId, categoryId, transactionNumeral, transactionName, transactionDescription, date);
-//        Map<String, Boolean> map = new HashMap<>();
-//        map.put("success", true);
         return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 

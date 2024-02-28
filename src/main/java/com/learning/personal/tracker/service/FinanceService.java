@@ -15,4 +15,6 @@ public interface FinanceService {
     Finance updateFinanceCurrentBudget(Long userId, Double financeBudget) throws JSBadRequestException;
 
     void removeFinanceIncludingTransaction(Long userId) throws JSResourceNotFoundException;
+
+    void resetMonthlyBudget() throws JSResourceNotFoundException;
 }

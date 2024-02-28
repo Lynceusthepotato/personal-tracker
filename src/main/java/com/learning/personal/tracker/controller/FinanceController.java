@@ -44,8 +44,6 @@ public class FinanceController {
         Double financeMonthlyBudget = Double.parseDouble ((String) financeMap.get("finance_monthly_budget"));
         boolean doWarn = Boolean.parseBoolean((String) financeMap.get("do_warn"));
         Finance finance = financeService.updateFinance(userId, financeBudget, financeMonthlyBudget, doWarn);
-//        Map<String, Boolean> map = new HashMap<>();
-//        map.put("success", true);
         return new ResponseEntity<>(finance, HttpStatus.OK);
     }
 

@@ -39,7 +39,7 @@ public class FinanceServiceImplement implements FinanceService{
         } else {
             throw new JSBadRequestException("Data not found");
         }
-        return financeRepository.findById(userId);
+        return this.getFinanceDetailById(userId);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class FinanceServiceImplement implements FinanceService{
     public void removeFinanceIncludingTransaction(Long userId) throws JSResourceNotFoundException {
         this.getFinanceDetailById(userId);
         financeRepository.removeById(userId);
+    }
+
+    @Override
+    public void resetMonthlyBudget() throws JSResourceNotFoundException {
+        financeRepository.resetMonthlyBudget();
     }
 }
